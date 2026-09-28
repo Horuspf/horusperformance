@@ -58,7 +58,9 @@
 
     /* ===== Navegação ===== */
     .nav{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .3s,box-shadow .3s,border-color .3s;border-bottom:1px solid transparent}
-    .nav.scrolled{background:rgba(14,27,43,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line-dark)}
+    .nav.scrolled{background:rgba(14,27,43,.5);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border-color:rgba(255,255,255,.14);box-shadow:0 10px 30px -20px rgba(0,0,0,.45)}
+    .nav.scrolled .nav-links a,.nav.scrolled .brand{text-shadow:0 1px 10px rgba(14,27,43,.45)}
+    .nav.menu-open{background:rgba(14,27,43,.96)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:84px}
     .nav-links{display:none;list-style:none;gap:34px}
     .nav-links a{text-decoration:none;font-size:.86rem;font-weight:500;color:var(--on-dark);transition:color .2s}
@@ -625,11 +627,11 @@
     const menuBtn = document.getElementById("menuBtn"), mobileMenu = document.getElementById("mobileMenu");
     menuBtn.addEventListener("click", () => {
       const open = mobileMenu.classList.toggle("open");
-      nav.classList.toggle("scrolled", open || window.scrollY > 20);
+      nav.classList.toggle("menu-open", open);
       menuBtn.setAttribute("aria-expanded", open);
       menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     });
-    mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { mobileMenu.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }));
+    mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { mobileMenu.classList.remove("open"); nav.classList.remove("menu-open"); menuBtn.setAttribute("aria-expanded", "false"); }));
 
     // Revelação suave
     const reveals = document.querySelectorAll(".reveal");
@@ -638,19 +640,38 @@
       reveals.forEach(el => obs.observe(el));
     } else reveals.forEach(el => el.classList.add("visible"));
 
-    // Contadores
-    function animCount(el) {
-      const t = parseFloat(el.dataset.target), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "", fl = t % 1 !== 0;
-      const fmt = v => pre + (fl ? v.toFixed(1).replace(".", ",") : Math.round(v).toLocaleString("pt-BR")) + suf;
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = fmt(t); return; }
-      const s = performance.now();
-      (function tick(n) { const p = Math.min((n - s) / 1800, 1); el.textContent = fmt((1 - Math.pow(1 - p, 3)) * t); if (p < 1) requestAnimationFrame(tick); })(s);
-    }
-    const counters = document.querySelectorAll("[data-target]");
-    if ("IntersectionObserver" in window) {
-      const co = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { counters.forEach(animCount); co.disconnect(); } }, { threshold: 0.3 });
-      co.observe(document.getElementById("numeros"));
-    } else counters.forEach(animCount);
+    // Contadores: sobem aos poucos conforme a pessoa desce a página
+    (function(){
+      const counters = [...document.querySelectorAll("[data-target]")];
+      const band = document.getElementById("numeros");
+      const fmt = (el, v) => {
+        const t = parseFloat(el.dataset.target), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
+        return pre + (t % 1 !== 0 ? v.toFixed(1).replace(".", ",") : Math.round(v).toLocaleString("pt-BR")) + suf;
+      };
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) { counters.forEach(el => el.textContent = fmt(el, parseFloat(el.dataset.target))); return; }
+      let best = 0, shown = 0, raf = null;
+      function progress(){
+        const r = band.getBoundingClientRect(), vh = innerHeight;
+        // começa quando os números entram por baixo da tela e completa quando chegam perto do topo
+        const p = (vh - r.top) / (vh * 0.85);
+        return Math.max(0, Math.min(1, p));
+      }
+      function render(){
+        // suaviza o movimento para não pular de uma vez
+        shown += (best - shown) * 0.08;
+        if (Math.abs(best - shown) < 0.001) shown = best;
+        const e = 1 - Math.pow(1 - shown, 2);
+        counters.forEach(el => el.textContent = fmt(el, e * parseFloat(el.dataset.target)));
+        raf = shown !== best ? requestAnimationFrame(render) : null;
+      }
+      function onScroll(){
+        const p = progress();
+        if (p > best) { best = p; if (!raf) raf = requestAnimationFrame(render); }
+      }
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      onScroll();
+    })();
 
     // Carrossel automático de depoimentos
     (function(){
