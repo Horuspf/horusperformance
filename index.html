@@ -640,37 +640,46 @@
       reveals.forEach(el => obs.observe(el));
     } else reveals.forEach(el => el.classList.add("visible"));
 
-    // Contadores: sobem aos poucos conforme a pessoa desce a página
+    // Contadores: sobem devagar conforme a pessoa desce a página
     (function(){
       const counters = [...document.querySelectorAll("[data-target]")];
       const band = document.getElementById("numeros");
+      if (!band || !counters.length) return;
       const fmt = (el, v) => {
         const t = parseFloat(el.dataset.target), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
         return pre + (t % 1 !== 0 ? v.toFixed(1).replace(".", ",") : Math.round(v).toLocaleString("pt-BR")) + suf;
       };
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) { counters.forEach(el => el.textContent = fmt(el, parseFloat(el.dataset.target))); return; }
-      let best = 0, shown = 0, raf = null;
+      const draw = v => counters.forEach(el => el.textContent = fmt(el, v * parseFloat(el.dataset.target)));
+      draw(0);
+      let goal = 0, shown = 0, last = 0, running = false;
+      const MIN_TIME = 3.2; // segundos mínimos para ir de 0 ao valor final
       function progress(){
-        const r = band.getBoundingClientRect(), vh = innerHeight;
-        // começa quando os números entram por baixo da tela e completa quando chegam perto do topo
-        const p = (vh - r.top) / (vh * 0.85);
-        return Math.max(0, Math.min(1, p));
+        const r = band.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        // 0 quando a seção aparece embaixo da tela, 1 quando chega perto do topo
+        return Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.8)));
       }
-      function render(){
-        // suaviza o movimento para não pular de uma vez
-        shown += (best - shown) * 0.08;
-        if (Math.abs(best - shown) < 0.001) shown = best;
-        const e = 1 - Math.pow(1 - shown, 2);
-        counters.forEach(el => el.textContent = fmt(el, e * parseFloat(el.dataset.target)));
-        raf = shown !== best ? requestAnimationFrame(render) : null;
+      function frame(now){
+        const dt = last ? Math.min((now - last) / 1000, .05) : .016; last = now;
+        const maxStep = dt / MIN_TIME;
+        shown = Math.min(goal, shown + Math.min(maxStep, (goal - shown) * 0.06 + maxStep * .25));
+        draw(1 - Math.pow(1 - shown, 2));
+        if (shown < goal - 0.0005) requestAnimationFrame(frame);
+        else { shown = goal; draw(1 - Math.pow(1 - shown, 2)); running = false; last = 0; }
       }
-      function onScroll(){
+      function update(){
         const p = progress();
-        if (p > best) { best = p; if (!raf) raf = requestAnimationFrame(render); }
+        if (p > goal) { goal = p; if (!running) { running = true; requestAnimationFrame(frame); } }
       }
-      addEventListener("scroll", onScroll, { passive: true });
-      addEventListener("resize", onScroll);
-      onScroll();
+      // escuta a rolagem da janela e de qualquer contêiner (funciona também dentro de construtores de site)
+      window.addEventListener("scroll", update, { passive: true });
+      document.addEventListener("scroll", update, { passive: true, capture: true });
+      window.addEventListener("resize", update);
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(() => update(), { threshold: [0, .25, .5, .75, 1] }).observe(band);
+      }
+      setInterval(update, 400); // garantia extra caso algum evento de rolagem não chegue
+      update();
     })();
 
     // Carrossel automático de depoimentos
