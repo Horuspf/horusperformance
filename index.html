@@ -316,6 +316,21 @@
       .float-wa::before,.float-wa::after{animation:waRing 1.8s cubic-bezier(.2,.6,.35,1) infinite!important}
       .float-wa::after{animation-delay:.9s!important}
     }
+    /* ===== Clínicas Fundadoras ===== */
+    .founders{display:grid;gap:44px;align-items:center}
+    .seats{display:flex;align-items:center;gap:8px;margin:26px 0 30px}
+    .seats span{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(201,169,110,.18)}
+    .seats strong{margin-left:10px;font-size:.9rem;font-weight:600;color:var(--ink)}
+    .founders-card{background:var(--off);border:1px solid var(--gray);border-radius:18px;padding:clamp(24px,4vw,40px);position:relative;overflow:hidden}
+    .founders-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--teal),var(--gold))}
+    .founders-list{list-style:none;display:grid;gap:18px;margin-bottom:24px}
+    .founders-list li{display:flex;gap:14px}
+    .founders-list svg{width:20px;height:20px;color:var(--teal);flex-shrink:0;margin-top:3px}
+    .founders-list strong{display:block;color:var(--ink);font-weight:600}
+    .founders-list span{font-size:.92rem;color:var(--muted)}
+    .founders-deal{padding-top:18px;border-top:1px solid var(--gray);font-size:.92rem;color:var(--text)}
+    .founders-deal strong{color:var(--ink)}
+    @media (min-width:1024px){.founders{grid-template-columns:1fr 1.05fr;gap:72px}}
   </style>
 </head>
 <body>
@@ -357,8 +372,8 @@
         <li><a href="#top">Início</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#cases">Cases</a></li>
-        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#fundadoras">Fundadoras</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a href="https://wa.me/5511978547261" class="btn btn-ghost btn-sm nav-cta" target="_blank" rel="noopener noreferrer">Fale conosco <svg class="arrow"><use href="#i-arrow"/></svg></a>
@@ -368,8 +383,8 @@
       <a href="#top">Início</a>
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
-      <a href="#cases">Cases</a>
-      <a href="#depoimentos">Depoimentos</a>
+      <a href="#metodo">Método</a>
+      <a href="#fundadoras">Fundadoras</a>
       <a href="#contato">Contato</a>
       <a href="https://wa.me/5511978547261" class="btn btn-teal" target="_blank" rel="noopener noreferrer"><svg><use href="#i-wa"/></svg>Fale conosco</a>
     </nav>
@@ -435,18 +450,18 @@
       </div>
     </section>
 
-    <!-- NÚMEROS / CASES -->
-    <section class="section bg-white stats" id="cases">
+    <!-- COMPROMISSOS -->
+    <section class="section bg-white stats" id="compromissos">
       <div class="container">
         <div class="stats-head reveal">
-          <div><span class="eyebrow">Resultados comprovados</span><h2 class="h2">Números reais, clínicas reais.</h2></div>
-          <p class="muted" style="max-width:26em">O que já entregamos para clínicas de saúde e estética.</p>
+          <div><span class="eyebrow">Compromissos</span><h2 class="h2">O que a sua clínica pode esperar.</h2></div>
+          <p class="muted" style="max-width:26em">Combinados que valem desde o primeiro contato, para qualquer clínica que trabalhar com a Hórus.</p>
         </div>
         <div class="stats-grid reveal" id="numeros">
-          <div class="stat"><span class="stat-num" data-target="10" data-suffix="+">0</span><span class="stat-lbl">Clínicas atendidas</span></div>
-          <div class="stat"><span class="stat-num" data-target="850" data-prefix="R$ " data-suffix="k+">0</span><span class="stat-lbl">Verba gerenciada</span></div>
-          <div class="stat"><span class="stat-num" data-target="3200" data-suffix="+">0</span><span class="stat-lbl">Agendamentos gerados</span></div>
-          <div class="stat"><span class="stat-num" data-target="4.6" data-suffix="x">0</span><span class="stat-lbl">ROI médio</span></div>
+          <div class="stat"><span class="stat-num" data-target="24" data-suffix="h">0</span><span class="stat-lbl">Prazo máximo para responder seu contato</span></div>
+          <div class="stat"><span class="stat-num" data-target="0" data-prefix="R$ ">R$ 0</span><span class="stat-lbl">Custo do diagnóstico inicial da clínica</span></div>
+          <div class="stat"><span class="stat-num" data-target="4" data-suffix=" etapas">0</span><span class="stat-lbl">Método claro, do diagnóstico aos resultados</span></div>
+          <div class="stat"><span class="stat-num" data-target="100" data-suffix="%">0</span><span class="stat-lbl">Atendimento direto com quem executa</span></div>
         </div>
       </div>
     </section>
@@ -507,27 +522,25 @@
       </div>
     </section>
 
-    <!-- DEPOIMENTOS -->
-    <section class="section bg-white" id="depoimentos">
-      <div class="container">
-        <div class="reveal" style="max-width:640px;margin-bottom:40px">
-          <span class="eyebrow">Depoimentos</span>
-          <h2 class="h2">Clínicas que transformaram.</h2>
+    <!-- CLÍNICAS FUNDADORAS -->
+    <section class="section bg-white" id="fundadoras">
+      <div class="container founders">
+        <div class="reveal">
+          <span class="eyebrow">Programa Clínicas Fundadoras</span>
+          <h2 class="h2">Seja uma das 5 primeiras clínicas a crescer com a Hórus.</h2>
+          <p class="muted">Estamos abrindo nossa carteira com poucas clínicas, para acompanhar cada uma de perto. Quem entra agora recebe condições que não vão se repetir e ajuda a construir os primeiros cases da agência.</p>
+          <div class="seats" aria-label="5 vagas disponíveis"><span></span><span></span><span></span><span></span><span></span><strong>5 vagas abertas</strong></div>
+          <a href="#contato" class="btn btn-teal">Quero uma vaga de fundadora <svg class="arrow"><use href="#i-arrow"/></svg></a>
         </div>
-        <div class="carousel reveal" id="testiCarousel" aria-roledescription="carrossel" aria-label="Depoimentos de clientes">
-          <div class="track" id="testiTrack" tabindex="0">
-            <figure class="testi"><div class="testi-top"><span class="badge b-odonto">Odontologia</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Em 60 dias nossa agenda de implantes estava lotada com 3 semanas de antecedência. O ROI foi superior a tudo que já tentamos com outras agências."</blockquote><figcaption class="author"><span class="av">DS</span><div><strong>Dr. Diego Souza</strong><small>Odonto Prime - São Paulo</small></div></figcaption></figure>
-            <figure class="testi"><div class="testi-top"><span class="badge b-est">Estética</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Triplicamos os agendamentos de harmonização facial em 3 meses. O fluxo de WhatsApp agenda sozinho enquanto estou na sala de procedimentos."</blockquote><figcaption class="author"><span class="av">AC</span><div><strong>Dra. Amanda Costa</strong><small>Studio Lumiere Estética - Rio de Janeiro</small></div></figcaption></figure>
-            <figure class="testi"><div class="testi-top"><span class="badge">Medicina</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Antes dependíamos 100% de indicação. Hoje temos fluxo constante de pacientes particulares vindos do Google e Instagram. Mudou o negócio."</blockquote><figcaption class="author"><span class="av">RF</span><div><strong>Dr. Ricardo Faria</strong><small>Clínica Faria Medicina - Belo Horizonte</small></div></figcaption></figure>
-            <figure class="testi"><div class="testi-top"><span class="badge b-odonto">Odontologia</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Os relatórios são claros e diretos: custo por lead, custo por agendamento e retorno por procedimento. Nunca tive tanto controle do meu marketing."</blockquote><figcaption class="author"><span class="av">ML</span><div><strong>Dra. Marina Lima</strong><small>OdontoClin Especialidades - Porto Alegre</small></div></figcaption></figure>
-            <figure class="testi"><div class="testi-top"><span class="badge b-est">Estética</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Meus Reels nunca tiveram tanta repercussão. O conteúdo é profissional e humanizado, os pacientes chegam já com confiança antes da primeira consulta."</blockquote><figcaption class="author"><span class="av">PB</span><div><strong>Dra. Patrícia Braga</strong><small>Clínica PB Estética Avançada - São Paulo</small></div></figcaption></figure>
-            <figure class="testi"><div class="testi-top"><span class="badge">Medicina</span><span class="stars" aria-label="5 estrelas"></span></div><blockquote>"Começamos com um procedimento e hoje anunciamos toda a grade de especialidades. A equipe entende de saúde e sabe o que pode e não pode comunicar."</blockquote><figcaption class="author"><span class="av">TN</span><div><strong>Dr. Thiago Neves</strong><small>Instituto Neves Medicina - Curitiba</small></div></figcaption></figure>
-          </div>
-          <div class="car-controls">
-            <button class="car-btn" id="carPrev" aria-label="Depoimento anterior"><svg style="transform:rotate(180deg)"><use href="#i-chev"/></svg></button>
-            <div class="car-dots" id="carDots"></div>
-            <button class="car-btn" id="carNext" aria-label="Próximo depoimento"><svg><use href="#i-chev"/></svg></button>
-          </div>
+        <div class="founders-card reveal">
+          <h3 class="form-title" style="margin-bottom:18px">O que a clínica fundadora recebe</h3>
+          <ul class="founders-list">
+            <li><svg><use href="#i-check"/></svg><div><strong>Condição especial de lançamento</strong><span>Investimento mensal reduzido, mantido enquanto a parceria durar.</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div><strong>Diagnóstico e plano de ação completos</strong><span>Análise da clínica, da concorrência e dos procedimentos de maior margem, sem custo.</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div><strong>Acompanhamento próximo</strong><span>Reuniões frequentes e contato direto com quem executa suas campanhas.</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div><strong>Prioridade na implantação</strong><span>Sua estrutura de anúncios e automação é montada primeiro.</span></div></li>
+          </ul>
+          <div class="founders-deal"><strong>Em troca:</strong> autorização para mostrar os resultados como case, sempre com a sua aprovação antes de qualquer publicação.</div>
         </div>
       </div>
     </section>
@@ -598,8 +611,8 @@
           <li><a href="#top">Início</a></li>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#cases">Cases</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#metodo">Método</a></li>
+          <li><a href="#fundadoras">Fundadoras</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
         <div class="foot-right">
@@ -652,17 +665,17 @@
       const draw = v => counters.forEach(el => el.textContent = fmt(el, v * parseFloat(el.dataset.target)));
       draw(0);
       let goal = 0, shown = 0, last = 0, running = false;
-      const MIN_TIME = 3.2; // segundos mínimos para ir de 0 ao valor final
+      const MIN_TIME = 1.5; // segundos mínimos para ir de 0 ao valor final
       function progress(){
         const r = band.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
         // 0 quando a seção aparece embaixo da tela, 1 quando chega perto do topo
-        return Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.8)));
+        return Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.5)));
       }
       function frame(now){
         const dt = last ? Math.min((now - last) / 1000, .05) : .016; last = now;
         const maxStep = dt / MIN_TIME;
-        shown = Math.min(goal, shown + Math.min(maxStep, (goal - shown) * 0.06 + maxStep * .25));
+        shown = Math.min(goal, shown + Math.min(maxStep, (goal - shown) * 0.12 + maxStep * .4));
         draw(1 - Math.pow(1 - shown, 2));
         if (shown < goal - 0.0005) requestAnimationFrame(frame);
         else { shown = goal; draw(1 - Math.pow(1 - shown, 2)); running = false; last = 0; }
@@ -680,48 +693,6 @@
       }
       setInterval(update, 400); // garantia extra caso algum evento de rolagem não chegue
       update();
-    })();
-
-    // Carrossel automático de depoimentos
-    (function(){
-      const car = document.getElementById("testiCarousel"), track = document.getElementById("testiTrack");
-      const cards = [...track.children], dotsWrap = document.getElementById("carDots");
-      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let timer = null, paused = false, visible = false;
-      const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
-      const perView = () => Math.max(1, Math.round(track.clientWidth / step()));
-      const pages = () => cards.length - perView() + 1;
-      const current = () => Math.round(track.scrollLeft / step());
-      function buildDots(){
-        dotsWrap.innerHTML = "";
-        for (let i = 0; i < pages(); i++) {
-          const d = document.createElement("button"); d.className = "car-dot"; d.setAttribute("aria-label", "Ir para depoimento " + (i + 1));
-          d.addEventListener("click", () => { goTo(i); restart(); }); dotsWrap.appendChild(d);
-        }
-        updateDots();
-      }
-      function updateDots(){ const i = Math.min(current(), pages() - 1); [...dotsWrap.children].forEach((d, k) => d.classList.toggle("active", k === i)); }
-      function goTo(i){ const n = pages(); track.scrollTo({ left: (((i % n) + n) % n) * step(), behavior: "smooth" }); }
-      const next = () => goTo(current() + 1), prev = () => goTo(current() - 1);
-      function start(){ if (reduce || timer) return; timer = setInterval(() => { if (!paused && visible) next(); }, 4500); }
-      function restart(){ clearInterval(timer); timer = null; start(); }
-      document.getElementById("carNext").addEventListener("click", () => { next(); restart(); });
-      document.getElementById("carPrev").addEventListener("click", () => { prev(); restart(); });
-      track.addEventListener("scroll", () => requestAnimationFrame(updateDots), { passive: true });
-      track.addEventListener("keydown", e => {
-        if (e.key === "ArrowRight") { e.preventDefault(); next(); restart(); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); prev(); restart(); }
-      });
-      car.addEventListener("mouseenter", () => paused = true);
-      car.addEventListener("mouseleave", () => paused = false);
-      car.addEventListener("focusin", () => paused = true);
-      car.addEventListener("focusout", () => paused = false);
-      track.addEventListener("touchstart", () => paused = true, { passive: true });
-      track.addEventListener("touchend", () => setTimeout(() => paused = false, 3000), { passive: true });
-      document.addEventListener("visibilitychange", () => paused = document.hidden);
-      if ("IntersectionObserver" in window) new IntersectionObserver(es => es.forEach(e => visible = e.isIntersecting), { threshold: 0.3 }).observe(car); else visible = true;
-      let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildDots, 200); });
-      buildDots(); start();
     })();
 
     document.getElementById("currentYear").textContent = new Date().getFullYear();
