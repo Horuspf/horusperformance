@@ -331,6 +331,12 @@
     .founders-deal{padding-top:18px;border-top:1px solid var(--gray);font-size:.92rem;color:var(--text)}
     .founders-deal strong{color:var(--ink)}
     @media (min-width:1024px){.founders{grid-template-columns:1fr 1.05fr;gap:72px}}
+    /* ===== Logo em imagem ===== */
+    .brand-img{display:block;height:50px;width:auto;max-width:220px;object-fit:contain}
+    .brand-img-foot{height:40px}
+    .brand-fallback{display:flex;flex-direction:column;align-items:center}
+    .brand-fallback[hidden]{display:none}
+    @media (max-width:560px){.brand-img{height:42px}}
   </style>
 </head>
 <body>
@@ -365,8 +371,8 @@
   <header class="nav" id="nav">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="Hórus Performance, voltar ao início">
-        <span class="brand-main">H<svg class="eye-o" aria-hidden="true"><use href="#i-eyeo"/></svg>RUS</span>
-        <span class="brand-sub">PERFORMANCE</span>
+        <img class="brand-img" src="assets/logo-horus.png" alt="Hórus Performance" onerror="this.nextElementSibling.hidden=false;this.remove()">
+        <span class="brand-fallback" hidden><span class="brand-main">H<svg class="eye-o" aria-hidden="true"><use href="#i-eyeo"/></svg>RUS</span><span class="brand-sub">PERFORMANCE</span></span>
       </a>
       <ul class="nav-links">
         <li><a href="#top">Início</a></li>
@@ -606,7 +612,7 @@
   <footer>
     <div class="container">
       <div class="foot">
-        <a class="brand" href="#top" aria-label="Hórus Performance"><span class="brand-main" style="font-size:1.5rem">H<svg class="eye-o" aria-hidden="true"><use href="#i-eyeo"/></svg>RUS</span><span class="brand-sub">PERFORMANCE</span></a>
+        <a class="brand" href="#top" aria-label="Hórus Performance"><img class="brand-img brand-img-foot" src="assets/logo-horus.png" alt="Hórus Performance" onerror="this.nextElementSibling.hidden=false;this.remove()"><span class="brand-fallback" hidden><span class="brand-main" style="font-size:1.5rem">H<svg class="eye-o" aria-hidden="true"><use href="#i-eyeo"/></svg>RUS</span><span class="brand-sub">PERFORMANCE</span></span></a>
         <ul class="foot-links">
           <li><a href="#top">Início</a></li>
           <li><a href="#sobre">Sobre</a></li>
